@@ -12,3 +12,12 @@ echo "tests/data/gencode_edges.metta" &&\
 ./scripts/run.sh syntax_check ./tests/data/gencode_edges.metta &&\
 echo "tests/data/hocomoco_nodes.metta" &&\
 ./scripts/run.sh syntax_check ./tests/data/hocomoco_nodes.metta
+
+# Fork-local addition: bare angle symbols must lex truthfully
+# (previously < and > were silently dropped by the flex default rule)
+echo "tests/data/bare_angle.metta"
+BARE_ANGLE_OUTPUT=$(./scripts/run.sh syntax_check ./tests/data/bare_angle.metta)
+if [[ $? -ne 0 ]] || [[ "$BARE_ANGLE_OUTPUT" != *"Syntax check OK"* ]]; then
+    echo "FAIL: tests/data/bare_angle.metta did not pass syntax check" >&2
+    exit 1
+fi
