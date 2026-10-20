@@ -8,6 +8,7 @@ extern int yylineno;
 extern unsigned long INPUT_LINE_COUNT;
 
 static unsigned int COUNT_TOPLEVEL = 1;
+static unsigned int PARSED_TOPLEVELS = 0;
 
 void initialize_actions() {
 #ifndef SUPPRESS_PROGRESS_BAR
@@ -23,13 +24,15 @@ void start() {
 #ifndef SUPPRESS_PROGRESS_BAR
     print_progress_bar(INPUT_LINE_COUNT, INPUT_LINE_COUNT, 1, 1, true);
 #endif
-    printf("Syntax check OK\n");
+    printf("Syntax check OK (%u toplevels)\n", PARSED_TOPLEVELS);
 }
 
 void toplevel_list_base(char *handle) {
+    PARSED_TOPLEVELS++;
 }
 
 void toplevel_list_recursion(char *handle) {
+    PARSED_TOPLEVELS++;
     if ((COUNT_TOPLEVEL % 10000) == 0) {
 #ifndef SUPPRESS_PROGRESS_BAR
         print_progress_bar(yylineno, INPUT_LINE_COUNT, 1, 1, false);

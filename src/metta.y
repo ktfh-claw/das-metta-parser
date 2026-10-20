@@ -130,9 +130,9 @@ int main(int argc, char *argv[]) {
 
     INPUT_LINE_COUNT = get_line_count(input_file);
     
-	yyin = fopen(input_file, "r");
+    yyin = fopen(input_file, "r");
     if (yyin == NULL) {
-        yyerror("Invalid input file path\n");
+        fprintf(stderr, "Invalid input file path: %s\n", input_file);
         exit(1);
     }
 

@@ -63,6 +63,7 @@
 
 void yyerror(const char *s)
 {
+    fprintf(stdout, "Parse FAILED near line %d: %s\n", yylineno, s);
     fprintf(stderr,"Parse error near line %d\nInput: %s\nError message: %s\n", yylineno, yytext, s);
     exit(1);
 }
